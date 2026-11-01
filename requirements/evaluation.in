@@ -1,0 +1,6 @@
+# Offline scoring/evaluation tools; not dependencies of the running web service.
+-r contract-tests.txt
+numpy==2.3.3
+scipy==1.16.2
+scikit-learn==1.7.2
+pyarrow==21.0.0

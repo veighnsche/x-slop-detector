@@ -1,0 +1,8 @@
+{
+  "schema_version": "2",
+  "extraction_version": "own-text-fixture-v1",
+  "posts": [
+    {"id": "normal", "text": "Two fixture words"},
+    {"id": "short", "text": "Yes."}
+  ]
+}

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>X Slop Detector</title>
+  <link rel="stylesheet" href="popup.css">
+  <script defer src="shared.js"></script>
+  <script defer src="popup.js"></script>
+</head>
+<body>
+  <header>
+    <div><h1>X Slop Detector</h1><span class="muted">Multi-detector · research client</span></div>
+    <button id="configure" class="icon" aria-label="Open configuration" title="Configuration">⚙</button>
+  </header>
+  <main>
+    <section id="panel" aria-label="Control panel">
+      <div class="card">
+        <strong id="connection">Not connected</strong>
+        <p id="residency">Configure your dedicated server.</p>
+        <p id="progress" class="muted">No server state received.</p>
+        <div class="actions">
+          <button id="load" disabled>Load</button>
+          <button id="unload" class="secondary" disabled>Unload</button>
+        </div>
+        <p class="muted">Shared controls affect every client. Unload pauses new analysis; Load resumes the server.</p>
+      </div>
+      <label class="toggle"><input id="scanning" type="checkbox"> Scan visible posts</label>
+      <p class="muted">Client-local. Off stops new submissions, not work already owned by the server.</p>
+      <p class="notice">Feed result: <b>—</b><br>No validated combined probability. A detector score or watermark finding is not an authorship percentage.</p>
+      <details id="diagnostics"><summary>Latest native diagnostics</summary>
+        <p class="muted">Latest accepted result in this browser. No post text retained here.</p>
+        <div id="native">No analysis yet.</div>
+      </details>
+      <button id="refresh" class="text-button">Refresh server state</button>
+    </section>
+    <section id="config" aria-label="Configuration" hidden>
+      <div class="section-title"><h2>Configuration</h2><button id="close-config" class="icon" aria-label="Cancel configuration">×</button></div>
+      <form id="connection-form">
+        <label for="server">Analysis server origin</label>
+        <input id="server" type="url" placeholder="https://your-server.example" maxlength="2048" autocomplete="off" required>
+        <p class="muted">HTTPS, or loopback HTTP for development. No endpoint is preselected.</p>
+        <label for="token">Server token</label>
+        <input id="token" type="password" placeholder="New token (blank keeps saved token)" maxlength="4096" autocomplete="off" spellcheck="false">
+        <p id="credential-note" class="muted">Stored only in this extension on this device. Never syncs to Chrome or enters X pages.</p>
+        <div class="actions"><button id="test" type="button" class="secondary">Test draft connection</button></div>
+        <p id="draft-result" role="status">Draft not tested. Server details below refer to the saved connection only.</p>
+        <details open><summary>Profile and limits · server-owned</summary><div id="profile-info">No verified saved connection.</div></details>
+        <details><summary>Components and residency</summary><div id="component-info">No verified saved connection.</div></details>
+        <details><summary>Local watermark applicability</summary><div id="watermark-info">No verified saved connection.</div></details>
+        <details><summary>Provider access and approval</summary>
+          <p class="muted">Read-only operator policy. Saving a server token does not enable any provider. No hosted adapter is connected.</p>
+          <div id="provider-info">No verified saved connection.</div>
+        </details>
+        <details><summary>Privacy and ownership</summary>
+          <p>Visible own-post text is sent to the chosen server only when scanning is on. Quoted text, cookies, usernames, and media are not submitted.</p>
+          <p>Recent exact-text results stay in bounded background memory for up to five minutes, not persistent storage. The server operator controls its logs and retention.</p>
+          <p>Idle timeout, detector selection, watermark scope/keys, provider credentials and approvals are server-managed. There are no manual probability weights.</p>
+          <p id="destination">No server selected.</p>
+          <p>Chrome host permission covers the selected hostname and scheme on all ports. Remove obsolete grants below or in Chrome's extension settings.</p>
+          <button id="revoke" type="button" class="secondary">Revoke saved server access</button>
+        </details>
+        <div class="actions sticky"><button id="save" type="submit">Save</button><button id="cancel" type="button" class="secondary">Cancel</button></div>
+      </form>
+    </section>
+    <p id="feedback" role="status" aria-live="polite"></p>
+  </main>
+</body>
+</html>

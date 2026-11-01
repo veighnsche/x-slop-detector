@@ -48,6 +48,8 @@ ZeroGPT has a [Business API](https://api.zerogpt.com/docs), but this review did 
 
 ## Local CPU candidates
 
+**Follow-up:** the [expanded open-source review](open-source-detectors.md) adds E5-small (tweet-related training and a ~39 MB third-party quantized ONNX export), Tabularis ModernBERT, and rasbt DistilBERT. Evaluate **E5 alongside TMR** for browser CPU; add **Tabularis** for a local-service comparison. This expands the deployment shortlist without establishing an accuracy winner.
+
 | Candidate | Available artifact and licensing | Suitability |
 | --- | --- | --- |
 | **TMR RoBERTa-base** | 125M parameters; MIT; [model card](https://huggingface.co/Oxidane/tmr-ai-text-detector). Existing [ONNX export](https://huggingface.co/onnx-community/tmr-ai-text-detector-ONNX/tree/main/onnx), about 126 MB int8 versus 499 MB FP32. | First deployment candidate. Dedicated binary classifier trained on RAID. The card explicitly warns of false positives on short/casual text. Verify export parity and actual CPU latency/RAM before integration. |

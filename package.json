@@ -1,0 +1,12 @@
+{
+  "name": "x-slop-detector-client-tests",
+  "private": true,
+  "scripts": {
+    "test": "node --test tests/extension/*.test.cjs",
+    "test:chrome": "node scripts/smoke_extension.cjs"
+  },
+  "devDependencies": {
+    "linkedom": "0.18.15",
+    "puppeteer-core": "25.16.0"
+  }
+}

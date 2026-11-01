@@ -4,8 +4,12 @@
 !.env.example
 node_modules/
 dist/
+build/
 .venv/
+.venv-contract/
+.venv-evaluation/
 __pycache__/
 *.pyc
+*.egg-info/
 .cache/
 models/

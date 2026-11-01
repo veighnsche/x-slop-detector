@@ -1,0 +1,32 @@
+# Imported by the GPU host's existing /etc/caddy/Caddyfile.
+# cloudflare_tls is its existing DNS-01 snippet; no DNS credential belongs here.
+slop-detection.dimensionlab.net {
+	import cloudflare_tls
+	log {
+		output discard
+	}
+	header {
+		Cache-Control "no-store"
+		X-Content-Type-Options "nosniff"
+	}
+	route {
+		# Match the actual socket peer, never a client-supplied forwarding header.
+		@outside not remote_ip 127.0.0.1/32 ::1/128 192.168.2.0/24 100.64.0.0/10 fd4c:4b32:3031::/64 fd7a:115c:a1e0::/48
+		respond @outside "Private endpoint" 403
+		@api path /v2/* /health /ready
+		handle @api {
+			request_body {
+				max_size 128000
+			}
+			reverse_proxy 127.0.0.1:18767 {
+				transport http {
+					dial_timeout 3s
+					response_header_timeout 180s
+					read_timeout 180s
+					write_timeout 30s
+				}
+			}
+		}
+		respond "Not found" 404
+	}
+}
